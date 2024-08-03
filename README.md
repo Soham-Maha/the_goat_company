@@ -13,9 +13,9 @@ This platform is a simple route which allows investors to provide the necessary 
 
 # Unique Selling Points
 ### There are several USPs to our company:
-- First-Mover Advantage
+- First-Mover Advantage: <br>
 The ecommerce x animal husbandry sector in India has minimal existing features. Investment apps in this sector are little to none, so launching this platform provides us with the **First-Mover Advantange**.
-- Secure Investment Management
+- Secure Investment Management: <br>
 One of the many comprehensive features of this app is a valet feature which ensures that the invested money is not misused. This provides a guarantee to the investors that their money going into the app is secure.
-- Guaranteed Profit Potential
+- Guaranteed Profit Potential: <br>
 Unlike other online investment apps which have high rates of unpredictablity this app offers a higher rate of return on investment as the investor will have direct contact with the business owner. 
