@@ -21,10 +21,11 @@ type Invesment struct {
 	gorm.Model
 	Amount      uint    `json:"amount" binding:"required"`
 	ProfitSplit float32 `json:"psplit" binding:"required"`
-	FarmerID    uint    `json:"farmerid" binding:"required"`
+	FarmerID    uint
 	Farmer      Farmer
 	InvestorID  uint
 	Investor    Investor
+	Status      string // "completed" or "pending" or "cancelled"
 }
 
 type HealthCheck struct {
