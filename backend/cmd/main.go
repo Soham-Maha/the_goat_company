@@ -24,7 +24,8 @@ func init() {
 func main() {
 	database.Init()
 
-	if err := database.RunMigrations(&models.Farmer{}, &models.Investor{}, &models.Goat{}, &models.Invesment{}); err != nil {
+	if err := database.RunMigrations(&models.Farmer{}, &models.Investor{},
+		&models.Goat{}, &models.Invesment{}, &models.Vet{}, &models.HealthCheck{}); err != nil {
 		os.Exit(1)
 	}
 
@@ -34,5 +35,6 @@ func main() {
 	routes.UserRoutes(r)
 	routes.ListingRoutes(r)
 	routes.InvesmentRoute(r)
+	routes.VetRoute(r)
 	r.Run()
 }

@@ -32,6 +32,9 @@ func AuthMiddleware(c *gin.Context) {
 	} else if err := database.DB.Where("email = ?", claims.Subject).First(&models.Investor{}).Error; err == nil {
 		user = new(models.Investor)
 		userType = "investor"
+	} else if err := database.DB.Where("email = ?", claims.Subject).First(&models.Vet{}).Error; err == nil {
+		user = new(models.Vet)
+		userType = "vet"
 	} else {
 		c.JSON(http.StatusUnauthorized, gin.H{"error": "User not found"})
 		c.Abort()
