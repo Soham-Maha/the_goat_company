@@ -6,6 +6,7 @@ import (
 	"github.com/gin-gonic/gin"
 	"github.com/vaibhavsijaria/TGC-be.git/database"
 	"github.com/vaibhavsijaria/TGC-be.git/models"
+	"github.com/vaibhavsijaria/TGC-be.git/services"
 )
 
 func CreateInvestment(c *gin.Context) {
@@ -33,6 +34,11 @@ func CreateInvestment(c *gin.Context) {
 
 	if err := database.DB.Create(invesment).Error; err != nil {
 		c.JSON(http.StatusInternalServerError, gin.H{"error": "Failed to create investment"})
+	}
+
+	if err := services.AddMoney("farmer", invesment.FarmerID, invesment.Amount); err != nil {
+		c.JSON(http.StatusInternalServerError, gin.H{"error": "Failed to update farmer's wallet"})
+		return
 	}
 
 	database.DB.Preload("Farmer").First(&invesment, invesment.ID)
