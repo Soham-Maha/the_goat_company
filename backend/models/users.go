@@ -16,6 +16,7 @@ type Farmer struct {
 	Name       string
 	Email      string `gorm:"unique"`
 	Password   string `json:"password"`
+	Wallet     uint
 	Goats      []Goat
 	Invesments []Invesment
 }

@@ -25,22 +25,26 @@ func AuthMiddleware(c *gin.Context) {
 	}
 
 	var user interface{}
-	var userType string
-	if err := database.DB.Where("email = ?", claims.Subject).First(&models.Farmer{}).Error; err == nil {
+	userType := claims.UserType
+
+	switch userType {
+	case "farmer":
 		user = new(models.Farmer)
-		userType = "farmer"
-	} else if err := database.DB.Where("email = ?", claims.Subject).First(&models.Investor{}).Error; err == nil {
+	case "investor":
 		user = new(models.Investor)
-		userType = "investor"
-	} else if err := database.DB.Where("email = ?", claims.Subject).First(&models.Vet{}).Error; err == nil {
+	case "vet":
 		user = new(models.Vet)
-		userType = "vet"
-	} else {
+	default:
+		c.JSON(http.StatusUnauthorized, gin.H{"error": "Invalid user type"})
+		c.Abort()
+		return
+	}
+
+	if err := database.DB.Where("email = ?", claims.Subject).First(user).Error; err != nil {
 		c.JSON(http.StatusUnauthorized, gin.H{"error": "User not found"})
 		c.Abort()
 		return
 	}
-	database.DB.Where("email = ?", claims.Subject).First(user)
 
 	c.Set("user", user)
 	c.Set("userType", userType)
