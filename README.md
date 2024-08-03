@@ -44,3 +44,9 @@ The following images showcase the different pages you may encounter while using 
 
 
 
+
+# Presentation to understand our project: 
+[Ideation behind the G.O.A.T app](https://www.canva.com/design/DAGMtt-IaoA/hQUcyHTVozGO-VvmKb75ew/edit?utm_content=DAGMtt-IaoA&utm_campaign=designshare&utm_medium=link2&utm_source=sharebutton)
+
+
+
