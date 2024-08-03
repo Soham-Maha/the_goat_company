@@ -8,7 +8,6 @@ import (
 	"github.com/joho/godotenv"
 
 	"github.com/vaibhavsijaria/TGC-be.git/database"
-	"github.com/vaibhavsijaria/TGC-be.git/middleware"
 	"github.com/vaibhavsijaria/TGC-be.git/models"
 	"github.com/vaibhavsijaria/TGC-be.git/routes"
 )
@@ -25,7 +24,7 @@ func init() {
 func main() {
 	database.Init()
 
-	if err := database.RunMigrations(&models.Farmer{}, &models.Investor{}, &models.Goat{}); err != nil {
+	if err := database.RunMigrations(&models.Farmer{}, &models.Investor{}, &models.Goat{}, &models.Invesment{}); err != nil {
 		os.Exit(1)
 	}
 
@@ -33,12 +32,6 @@ func main() {
 
 	routes.UserRoutes(r)
 	routes.ListingRoutes(r)
-	r.GET("/loggedin", middleware.AuthMiddleware, func(c *gin.Context) {
-		user, _ := c.Get("user")
-		c.JSON(200, gin.H{
-			"message": "You are logged in",
-			"user":    user,
-		})
-	})
+	routes.InvesmentRoute(r)
 	r.Run()
 }

@@ -13,15 +13,17 @@ type User struct {
 
 type Farmer struct {
 	gorm.Model
-	Name     string
-	Email    string `gorm:"unique"`
-	Password string `json:"password"`
-	Goats    []Goat `gorm:"foreignKey:FarmerID"`
+	Name       string
+	Email      string `gorm:"unique"`
+	Password   string `json:"password"`
+	Goats      []Goat
+	Invesments []Invesment
 }
 
 type Investor struct {
 	gorm.Model
-	Name     string
-	Email    string `gorm:"unique"`
-	Password string `json:"password"`
+	Name       string
+	Email      string `gorm:"unique"`
+	Password   string `json:"password"`
+	Invesments []Invesment
 }

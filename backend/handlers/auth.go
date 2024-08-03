@@ -131,3 +131,26 @@ func Login(c *gin.Context) {
 
 	c.JSON(http.StatusOK, gin.H{"message": "Login successful"})
 }
+
+func LoginCheck(c *gin.Context) {
+
+	user, _ := c.Get("user")
+	userType, _ := c.Get("userType")
+	if userType == "farmer" {
+		farmer, _ := user.(*models.Farmer)
+		database.DB.Preload("Goats").First(farmer, farmer.ID)
+		database.DB.Preload("Invesments").First(farmer, farmer.ID)
+		c.JSON(200, gin.H{
+			"message": "You are logged in",
+			"user":    farmer,
+		})
+	} else if userType == "investor" {
+		investor, _ := user.(*models.Investor)
+		database.DB.Preload("Invesments").First(investor, investor.ID)
+		c.JSON(200, gin.H{
+			"message": "You are logged in",
+			"user":    investor,
+		})
+	}
+
+}
