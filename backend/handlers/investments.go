@@ -9,10 +9,14 @@ import (
 	"github.com/vaibhavsijaria/TGC-be.git/services"
 )
 
-func CreateInvestment(c *gin.Context) {
-	invesment := new(models.Invesment)
+func OfferInvestment(c *gin.Context) {
+	var request struct {
+		Farmerid uint    `json:"farmerid" binding:"required"`
+		Amount   uint    `json:"amount" binding:"required"`
+		Psplit   float32 `json:"psplit" binding:"required"`
+	}
 
-	if err := c.ShouldBindJSON(invesment); err != nil {
+	if err := c.ShouldBindJSON(&request); err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 		return
 	}
@@ -30,21 +34,46 @@ func CreateInvestment(c *gin.Context) {
 		return
 	}
 
-	invesment.InvestorID = investor.Model.ID
-
-	if err := database.DB.Create(invesment).Error; err != nil {
-		c.JSON(http.StatusInternalServerError, gin.H{"error": "Failed to create investment"})
-	}
-
-	if err := services.AddMoney("farmer", invesment.FarmerID, invesment.Amount); err != nil {
-		c.JSON(http.StatusInternalServerError, gin.H{"error": "Failed to update farmer's wallet"})
+	investment, err := services.InitiateInvestment(request.Farmerid, investor.ID, request.Amount, request.Psplit)
+	if err != nil {
+		c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
 		return
 	}
 
-	database.DB.Preload("Farmer").First(&invesment, invesment.ID)
-	database.DB.Preload("Investor").First(&invesment, invesment.ID)
+	c.JSON(http.StatusOK, investment)
 
-	c.JSON(http.StatusOK, invesment)
+}
+
+func AcceptInvestment(c *gin.Context) {
+	var request struct {
+		InvestmentId uint   `json:"investmentid" binding:"required"`
+		Status       string `json:"status" binding:"required"`
+	}
+
+	if err := c.ShouldBindJSON(&request); err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+		return
+	}
+
+	user, exists := c.Get("user")
+	if !exists {
+		c.JSON(http.StatusUnauthorized, gin.H{"error": "User not authenticated"})
+		return
+	}
+
+	farmer, ok := user.(*models.Farmer)
+	if !ok {
+		c.JSON(http.StatusUnauthorized, gin.H{"error": "User is not a farmer"})
+		return
+	}
+
+	investment, err := services.RecieveInvestment(farmer.ID, request.InvestmentId, request.Status)
+	if err != nil {
+		c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
+		return
+	}
+
+	c.JSON(http.StatusOK, investment)
 }
 
 func ViewAllInvestment(c *gin.Context) {

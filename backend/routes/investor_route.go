@@ -8,6 +8,6 @@ import (
 
 func InvesmentRoute(c *gin.Engine) {
 	user := c.Group("/invest")
-	user.POST("/createinvestment", middleware.AuthMiddleware, handlers.CreateInvestment)
+	user.POST("/createinvestment", middleware.AuthMiddleware, handlers.OfferInvestment)
 	user.GET("/investments", middleware.AuthMiddleware, handlers.ViewAllInvestment)
 }

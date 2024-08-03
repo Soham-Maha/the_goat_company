@@ -8,6 +8,7 @@ import (
 
 func ListingRoutes(c *gin.Engine) {
 	user := c.Group("/farmer")
+	user.POST("/acceptinvestment", middleware.AuthMiddleware, handlers.AcceptInvestment)
 	user.POST("/creategoat", middleware.AuthMiddleware, handlers.CreateGoat)
 	user.POST("/sellgoat", middleware.AuthMiddleware, handlers.ListGoatForSale)
 	user.POST("/buygoat", middleware.AuthMiddleware, handlers.PurchaseGoat)
