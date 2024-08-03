@@ -48,6 +48,12 @@ func Signup(c *gin.Context) {
 			Name:  req.Name,
 		}
 		existingUser = &models.Investor{}
+	case "vet":
+		user = &models.Vet{
+			Email: req.Email,
+			Name:  req.Name,
+		}
+		existingUser = &models.Vet{}
 	default:
 		c.JSON(http.StatusBadRequest, gin.H{"error": "Invalid user type"})
 		return
@@ -69,6 +75,8 @@ func Signup(c *gin.Context) {
 	case *models.Farmer:
 		u.Password = string(hash)
 	case *models.Investor:
+		u.Password = string(hash)
+	case *models.Vet:
 		u.Password = string(hash)
 	}
 
@@ -96,6 +104,8 @@ func Login(c *gin.Context) {
 		user = &models.Farmer{}
 	case "investor":
 		user = &models.Investor{}
+	case "vet":
+		user = &models.Vet{}
 	default:
 		c.JSON(http.StatusBadRequest, gin.H{"error": "Invalid user type"})
 		return
@@ -111,6 +121,8 @@ func Login(c *gin.Context) {
 	case *models.Farmer:
 		hashedPassword = u.Password
 	case *models.Investor:
+		hashedPassword = u.Password
+	case *models.Vet:
 		hashedPassword = u.Password
 	}
 
@@ -150,6 +162,13 @@ func LoginCheck(c *gin.Context) {
 		c.JSON(200, gin.H{
 			"message": "You are logged in",
 			"user":    investor,
+		})
+	} else if userType == "vet" {
+		vet, _ := user.(*models.Vet)
+		database.DB.Preload("HealthChecks").First(vet, vet.ID)
+		c.JSON(200, gin.H{
+			"message": "You are logged in",
+			"user":    vet,
 		})
 	}
 

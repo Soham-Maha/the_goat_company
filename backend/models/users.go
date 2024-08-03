@@ -27,3 +27,11 @@ type Investor struct {
 	Password   string `json:"password"`
 	Invesments []Invesment
 }
+
+type Vet struct {
+	gorm.Model
+	Name         string
+	Email        string `gorm:"unique"`
+	Password     string `json:"password"`
+	HealthChecks []HealthCheck
+}

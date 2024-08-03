@@ -19,6 +19,8 @@ func GenerateJWT(user interface{}) (string, error) {
 		email = u.Email
 	case *models.Investor:
 		email = u.Email
+	case *models.Vet:
+		email = u.Email
 	default:
 		return "", errors.New("invalid user type")
 	}
