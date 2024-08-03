@@ -1,9 +1,12 @@
 package handlers
 
 import (
+	"fmt"
 	"net/http"
+	"strconv"
 
 	"github.com/gin-gonic/gin"
+	"github.com/google/uuid"
 	"github.com/vaibhavsijaria/TGC-be.git/database"
 	"github.com/vaibhavsijaria/TGC-be.git/models"
 )
@@ -11,13 +14,31 @@ import (
 func CreateGoat(c *gin.Context) {
 	goat := new(models.Goat)
 
-	if err := c.ShouldBindJSON(goat); err != nil {
-		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+	// if err := c.ShouldBindJSON(goat); err != nil {
+	// 	c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+	// 	return
+	// }
+
+	goat.Species = c.Request.FormValue("species")
+	goat.Description = c.Request.FormValue("description")
+
+	goatAgeStr := c.Request.FormValue("age")
+	goatAge, err := strconv.ParseUint(goatAgeStr, 10, 64)
+	if err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{"error": "Invalid age value"})
 		return
 	}
+	goat.Age = uint(goatAge)
+
+	priceStr := c.Request.FormValue("price")
+	price, err := strconv.ParseUint(priceStr, 10, 64)
+	if err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{"error": "Invalid age value"})
+		return
+	}
+	goat.Price = uint(price)
 
 	user, exists := c.Get("user")
-
 	if !exists {
 		c.JSON(http.StatusUnauthorized, gin.H{"error": "User not authenticated"})
 		return
@@ -30,8 +51,23 @@ func CreateGoat(c *gin.Context) {
 	}
 	goat.FarmerID = farmer.Model.ID
 
+	file, err := c.FormFile("image")
+	if err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{"error": "Image upload failed"})
+		return
+	}
+
+	filePath := fmt.Sprintf("/uploads/goats/%s_%s", uuid.New().String(), file.Filename)
+	if err := c.SaveUploadedFile(file, filePath); err != nil {
+		c.JSON(http.StatusInternalServerError, gin.H{"error": "Failed to save image"})
+		return
+	}
+
+	goat.ImageURL = filePath
+
 	if err := database.DB.Create(goat).Error; err != nil {
 		c.JSON(http.StatusInternalServerError, gin.H{"error": "Failed to list goat"})
+		return
 	}
 	database.DB.Preload("Farmer").First(&goat, goat.ID)
 	c.JSON(http.StatusOK, goat)
