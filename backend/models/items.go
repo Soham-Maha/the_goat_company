@@ -8,6 +8,7 @@ type Goat struct {
 	Age         uint   `json:"age" binding:"required"`
 	Price       uint   `json:"price" binding:"required"`
 	Description string `json:"description"`
+	ImageURL    string
 	FarmerID    uint
 	Farmer      Farmer
 }

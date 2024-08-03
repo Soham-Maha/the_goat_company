@@ -30,6 +30,7 @@ func main() {
 
 	r := gin.Default()
 
+	r.Static("/uploads", "./uploads")
 	routes.UserRoutes(r)
 	routes.ListingRoutes(r)
 	routes.InvesmentRoute(r)
