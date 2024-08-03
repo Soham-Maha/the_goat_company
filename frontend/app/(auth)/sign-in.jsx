@@ -17,7 +17,7 @@ const SignIn = () => {
   const submit = () => {};
 
   return (
-    <SafeAreaView className="bg-primary h-full">
+    <SafeAreaView className="bg-primary h-full" style={styles.container}>
       <ScrollView>
         <View className="w-full justify-center items-center h-full px-4">
           <Text className="text-3xl text-black font-bold mt-10 ">Sign In</Text>
@@ -41,6 +41,9 @@ const SignIn = () => {
             containerStyles="w-[115px] h-[41px] mt-5 "
             isLoading={isSubmitting}
           />
+          <View className="gap-2 pt-5 ">
+            <Link href="/home" className="text-lg text-blue-600">Forgot Password</Link>
+          </View>
           <View className="justify-center flex-row gap-2 pt-5 ">
             <Text className="text-lg text-black">Dont have a account?</Text>
             <Link className="font-bold text-lg text-black" href='sign-up'>Sign up</Link>
@@ -53,4 +56,8 @@ const SignIn = () => {
 
 export default SignIn;
 
-const styles = StyleSheet.create({});
+const styles = StyleSheet.create({
+  container:{
+    backgroundColor: "#B99C7C"
+  }
+});

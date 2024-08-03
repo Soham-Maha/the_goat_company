@@ -22,7 +22,7 @@ export default function App() {
     router.push("sign-in");
   };
   return (
-    <SafeAreaView className="bg-primary h-full">
+    <SafeAreaView className="h-full" style={styles.container}>
       <ScrollView contentContainerStyle={{ height: "100%" }}>
         <View className="w-full justify-center items-center h-[95vh] px-4">
         <Image
@@ -40,10 +40,10 @@ export default function App() {
               </StyledView>
 
               {/* Boxes at the bottom */}
-              <StyledView className="flex-1 justify-end items-center w-[390px] h-[844px]">
+              <StyledView className="flex-1 justify-center items-center w-[390px] h-[844px]">
                 <StyledView className="flex-row">
                   <TouchableOpacity onPress={handlePress}>
-                    <StyledView className="w-[166px] h-[230px] justify-end items-center m-2 rounded-[18px]" style={styles.container1}>
+                    <StyledView className="w-[166px] h-[230px] justify-center items-center m-2 rounded-[18px]" style={styles.container1}>
                     <StyledImage 
                       source={images.money}
                       className="w-[90px] h-[90px] justify-center"
@@ -54,7 +54,7 @@ export default function App() {
                     </StyledView>
                   </TouchableOpacity>
                   <TouchableOpacity onPress={handlePress}>
-                    <StyledView className="w-[166px] h-[230px] bg-green-500 justify-end items-center m-2 rounded-[18px]" style={styles.container2}>
+                    <StyledView className="w-[166px] h-[230px] bg-green-500 justify-center items-center m-2 rounded-[18px]" style={styles.container2}>
                     <StyledImage 
                       source={images.goat}
                       className="w-[90px] h-[90px] justify-center"
@@ -67,7 +67,7 @@ export default function App() {
                 </StyledView>
                 <StyledView className="flex-row">
                   <TouchableOpacity onPress={handlePress}>
-                    <StyledView className="w-[166px] h-[230px] bg-green-500 justify-end items-center m-2 rounded-[18px]" style={styles.container3}>
+                    <StyledView className="w-[166px] h-[230px] bg-green-500 justify-center items-center m-2 rounded-[18px]" style={styles.container3}>
                     <StyledImage 
                       source={images.buyer}
                       className="w-[90px] h-[90px] justify-center"
@@ -78,7 +78,7 @@ export default function App() {
                     </StyledView>
                   </TouchableOpacity>
                   <TouchableOpacity onPress={handlePress}>
-                    <StyledView className="w-[166px] h-[230px] bg-green-500 justify-end items-center m-2 rounded-[18px]" style={styles.container4}>
+                    <StyledView className="w-[166px] h-[230px] bg-green-500 justify-center items-center m-2 rounded-[18px]" style={styles.container4}>
                     <StyledImage 
                       source={images.vet_icon}
                       className="w-[90px] h-[90px] justify-center"
@@ -111,4 +111,7 @@ const styles = StyleSheet.create({
   container4: {
     backgroundColor: "#777B6D",
   },
+  container:{
+    backgroundColor: "#B99C7C"
+  }
 });

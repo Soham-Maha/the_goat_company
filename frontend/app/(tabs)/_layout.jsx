@@ -24,8 +24,8 @@ const TabsLayout = () => {
     <>
       <Tabs
         screenOptions={{
-          tabBarActiveTintColor: '#000000',
-          tabBarInactiveBackgroundColor: '#A4A364',
+          tabBarActiveBackgroundColor: "#4A6651",
+          tabBarInactiveBackgroundColor: '#6AA378',
           tabBarShowLabel: false,
           tabBarStyle: {
             backgroundColor: '#92A286',
@@ -53,13 +53,28 @@ const TabsLayout = () => {
         <Tabs.Screen
           name="search"
           options={{
-            title: "search",
+            title: "Explore",
             headerShown: false,
             tabBarIcon: (color, focused) => (
               <TabIcon
                 icon={icons.explore}
                 color={color}
                 name="search"
+                focused={focused}
+              />
+            ),
+          }}
+        />
+         <Tabs.Screen
+          name="wallet"
+          options={{
+            title: "Wallet",
+            headerShown: false,
+            tabBarIcon: (color, focused) => (
+              <TabIcon
+                icon={icons.wallet}
+                color={color}
+                name="Wallet"
                 focused={focused}
               />
             ),

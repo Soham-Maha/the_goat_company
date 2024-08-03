@@ -18,7 +18,7 @@ const SignUp = () => {
   const submit = () => {};
 
   return (
-    <SafeAreaView className="bg-primary h-full">
+    <SafeAreaView className="bg-primary h-full" style={styles.container}>
       <ScrollView>
         <View className="w-full justify-center items-center h-full px-4">
           <Text className="text-3xl text-black font-bold mt-10 ">Create Account</Text>
@@ -60,4 +60,8 @@ const SignUp = () => {
 
 export default SignUp;
 
-const styles = StyleSheet.create({});
+const styles = StyleSheet.create({
+  container:{
+    backgroundColor: "#B99C7C"
+  }
+});
