@@ -57,7 +57,7 @@ const TabsLayout = () => {
             headerShown: false,
             tabBarIcon: (color, focused) => (
               <TabIcon
-                icon={icons.home}
+                icon={icons.explore}
                 color={color}
                 name="search"
                 focused={focused}
