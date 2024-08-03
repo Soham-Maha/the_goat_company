@@ -25,7 +25,8 @@ func main() {
 	database.Init()
 
 	if err := database.RunMigrations(&models.Farmer{}, &models.Investor{},
-		&models.Goat{}, &models.Invesment{}, &models.Vet{}, &models.HealthCheck{}); err != nil {
+		&models.Goat{}, &models.Invesment{}, &models.Vet{}, &models.HealthCheck{},
+		&models.Transaction{}); err != nil {
 		os.Exit(1)
 	}
 
