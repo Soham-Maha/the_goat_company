@@ -9,5 +9,15 @@ type Goat struct {
 	Price       uint   `json:"price" binding:"required"`
 	Description string `json:"description"`
 	FarmerID    uint
-	Farmer      Farmer `gorm:"constraint:OnUpdate:CASCADE,OnDelete:SET NULL;"`
+	Farmer      Farmer
+}
+
+type Invesment struct {
+	gorm.Model
+	Amount      uint    `json:"amount" binding:"required"`
+	ProfitSplit float32 `json:"psplit" binding:"required"`
+	FarmerID    uint    `json:"farmerid" binding:"required"`
+	Farmer      Farmer
+	InvestorID  uint
+	Investor    Investor
 }

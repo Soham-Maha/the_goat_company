@@ -28,18 +28,16 @@ func CreateGoat(c *gin.Context) {
 		c.JSON(http.StatusUnauthorized, gin.H{"error": "User is not a farmer"})
 		return
 	}
-	// goat.Farmer = *farmer
 	goat.FarmerID = farmer.Model.ID
 
-	if err := database.DB.Model(farmer).Association("Goats").Append(goat); err != nil {
-		c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
-		return
+	if err := database.DB.Create(goat).Error; err != nil {
+		c.JSON(http.StatusInternalServerError, gin.H{"error": "Failed to list goat"})
 	}
-	database.DB.Preload("Goats").First(farmer, farmer.ID)
+	database.DB.Preload("Farmer").First(&goat, goat.ID)
 	c.JSON(http.StatusOK, goat)
 }
 
-func ListProducts(c *gin.Context) {
+func ListGoats(c *gin.Context) {
 	var Goats []models.Goat
 	query := database.DB
 

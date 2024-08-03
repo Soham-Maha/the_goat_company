@@ -27,10 +27,10 @@ func AuthMiddleware(c *gin.Context) {
 	var user interface{}
 	var userType string
 	if err := database.DB.Where("email = ?", claims.Subject).First(&models.Farmer{}).Error; err == nil {
-		user = &models.Farmer{}
+		user = new(models.Farmer)
 		userType = "farmer"
 	} else if err := database.DB.Where("email = ?", claims.Subject).First(&models.Investor{}).Error; err == nil {
-		user = &models.Investor{}
+		user = new(models.Investor)
 		userType = "investor"
 	} else {
 		c.JSON(http.StatusUnauthorized, gin.H{"error": "User not found"})
