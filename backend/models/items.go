@@ -11,6 +11,7 @@ type Goat struct {
 	Price        uint   `json:"price" binding:"required"`
 	Description  string `json:"description"`
 	ImageURL     string
+	ForSale      bool
 	FarmerID     uint
 	Farmer       Farmer
 	HealthChecks []HealthCheck

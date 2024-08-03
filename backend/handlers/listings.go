@@ -57,7 +57,7 @@ func CreateGoat(c *gin.Context) {
 		return
 	}
 
-	filePath := fmt.Sprintf("/uploads/goats/%s_%s", uuid.New().String(), file.Filename)
+	filePath := fmt.Sprintf("./uploads/goats/%s_%s", uuid.New().String(), file.Filename)
 	if err := c.SaveUploadedFile(file, filePath); err != nil {
 		c.JSON(http.StatusInternalServerError, gin.H{"error": "Failed to save image"})
 		return
