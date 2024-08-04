@@ -9,4 +9,6 @@ import (
 func VetRoute(c *gin.Engine) {
 	user := c.Group("/vet")
 	user.POST("/healthcheck", middleware.AuthMiddleware, handlers.HealthCheck)
+
+	user.GET("/listappointments", middleware.AuthMiddleware, handlers.ListAppointment)
 }
