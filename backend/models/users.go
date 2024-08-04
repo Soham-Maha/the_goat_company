@@ -35,4 +35,5 @@ type Vet struct {
 	Email        string `gorm:"unique"`
 	Password     string `json:"password"`
 	HealthChecks []HealthCheck
+	Appointments []Appointment
 }

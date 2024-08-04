@@ -14,10 +14,13 @@ func ListingRoutes(c *gin.Engine) {
 	farmer.POST("/creategoat", handlers.CreateGoat)
 	farmer.POST("/sellgoat", handlers.ListGoatForSale)
 	farmer.POST("/buygoat", handlers.PurchaseGoat)
+	farmer.POST("/bookappointment", handlers.BookAppointment)
 
 	farmer.GET("/goats", handlers.ListGoats)
 	farmer.GET("/myorders", handlers.GetMyOrders)
 	farmer.GET("/mylistings", handlers.GetMyListings)
 	farmer.GET("/mygoats", handlers.GetMyGoats)
 	farmer.GET("/myinvestmentrequest", handlers.FarmerInvestmentReq)
+	farmer.GET("/balance", handlers.GetWalletAmount)
+
 }
