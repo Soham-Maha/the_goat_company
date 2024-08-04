@@ -18,7 +18,7 @@ const SignUp = () => {
   const submit = async () => {
     setIsSubmitting(true);
     try {
-      const response = await fetch("https://36d8-152-67-176-76.ngrok-free.app/user/signup", {
+      const response = await fetch("https://shining-giraffe-fast.ngrok-free.app/user/signup", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
