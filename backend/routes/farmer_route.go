@@ -7,14 +7,17 @@ import (
 )
 
 func ListingRoutes(c *gin.Engine) {
-	user := c.Group("/farmer")
-	user.POST("/acceptinvestment", middleware.AuthMiddleware, handlers.AcceptInvestment)
-	user.POST("/requestinvestment", middleware.AuthMiddleware, handlers.RequestInvestment)
-	user.POST("/creategoat", middleware.AuthMiddleware, handlers.CreateGoat)
-	user.POST("/sellgoat", middleware.AuthMiddleware, handlers.ListGoatForSale)
-	user.POST("/buygoat", middleware.AuthMiddleware, handlers.PurchaseGoat)
-	user.GET("/goats", middleware.AuthMiddleware, handlers.ListGoats)
-	user.GET("/myorders", middleware.AuthMiddleware, handlers.GetMyOrders)
-	user.GET("/mylistings", middleware.AuthMiddleware, handlers.GetMyListings)
-	user.GET("/mygoats", middleware.AuthMiddleware, handlers.GetMyGoats)
+	farmer := c.Group("/farmer", middleware.AuthMiddleware)
+
+	farmer.POST("/acceptinvestment", handlers.AcceptInvestment)
+	farmer.POST("/requestinvestment", handlers.RequestInvestment)
+	farmer.POST("/creategoat", handlers.CreateGoat)
+	farmer.POST("/sellgoat", handlers.ListGoatForSale)
+	farmer.POST("/buygoat", handlers.PurchaseGoat)
+
+	farmer.GET("/goats", handlers.ListGoats)
+	farmer.GET("/myorders", handlers.GetMyOrders)
+	farmer.GET("/mylistings", handlers.GetMyListings)
+	farmer.GET("/mygoats", handlers.GetMyGoats)
+	farmer.GET("/myinvestmentrequest", handlers.FarmerInvestmentReq)
 }

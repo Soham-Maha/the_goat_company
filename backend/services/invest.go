@@ -81,7 +81,7 @@ func AcceptInvestment(investmentid, investorid uint) (*models.Invesment, error) 
 
 func GetInvestments(amount uint, profitSplit float32, farmerID, investorID uint, status string) ([]models.Invesment, error) {
 	var investments []models.Invesment
-	query := database.DB
+	query := database.DB.Preload("Farmer").Preload("Investor")
 
 	if amount != 0 {
 		query = query.Where("amount = ?", amount)

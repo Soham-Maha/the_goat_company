@@ -55,8 +55,11 @@ func Signup(c *gin.Context) {
 		}
 		existingUser = &models.Vet{}
 	default:
-		c.JSON(http.StatusBadRequest, gin.H{"error": "Invalid user type"})
-		return
+		user = &models.Farmer{
+			Email: req.Email,
+			Name:  req.Name,
+		}
+		existingUser = &models.Farmer{}
 	}
 
 	if err := database.DB.Where("email = ?", req.Email).First(existingUser).Error; err == nil {
@@ -107,8 +110,7 @@ func Login(c *gin.Context) {
 	case "vet":
 		user = &models.Vet{}
 	default:
-		c.JSON(http.StatusBadRequest, gin.H{"error": "Invalid user type"})
-		return
+		user = &models.Farmer{}
 	}
 
 	if err := database.DB.Where("email = ?", req.Email).First(user).Error; err != nil {
