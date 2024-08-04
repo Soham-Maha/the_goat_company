@@ -35,7 +35,7 @@ const SignIn = () => {
             handleChangeText={(p) => setForm({ ...form, password: p })}
             otherStyles="mt-4"
           />
-          <CustotmButtor
+          <CustotmButton
             title="Sign In"
             handlePress={submit}
             containerStyles="w-[115px] h-[41px] mt-5 "

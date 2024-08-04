@@ -42,7 +42,7 @@ const SignUp = () => {
             handleChangeText={(p) => setForm({ ...form, password: p })}
             otherStyles="mt-4"
           />
-          <CustotmButtor
+          <CustotmButton
             title="Create Account"
             handlePress={submit}
             containerStyles="w-[200px] h-[77px] mt-5 "

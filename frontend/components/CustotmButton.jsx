@@ -1,7 +1,7 @@
 import { StyleSheet, Text, TouchableOpacity, View } from 'react-native'
 import React from 'react'
 
-const CustotmButtor = ({title, handlePress, containerStyles, textStyles, isLoading}) => {
+const CustotmButton = ({title, handlePress, containerStyles, textStyles, isLoading}) => {
   return (
     <TouchableOpacity 
     onPress={handlePress}
@@ -13,7 +13,7 @@ const CustotmButtor = ({title, handlePress, containerStyles, textStyles, isLoadi
   )
 }
 
-export default CustotmButtor
+export default CustotmButton
 
 const styles = StyleSheet.create({
     container1:{
