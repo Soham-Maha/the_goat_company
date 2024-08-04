@@ -158,3 +158,24 @@ func AccpetToInvestment(c *gin.Context) {
 	c.JSON(http.StatusOK, investment)
 
 }
+
+func FarmerInvestmentReq(c *gin.Context) {
+	user, exists := c.Get("user")
+	if !exists {
+		c.JSON(http.StatusUnauthorized, gin.H{"error": "User not authenticated"})
+		return
+	}
+
+	farmer, ok := user.(*models.Farmer)
+	if !ok {
+		c.JSON(http.StatusUnauthorized, gin.H{"error": "User is not a farmer"})
+		return
+	}
+
+	investments, err := services.GetInvestments(0, 0, farmer.ID, 1, "")
+	if err != nil {
+		c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
+	}
+
+	c.JSON(http.StatusOK, investments)
+}
