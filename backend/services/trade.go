@@ -98,3 +98,26 @@ func GetAvailableGoats() ([]models.Goat, error) {
 	err := database.DB.Where("for_sale = ?", true).Find(&goats).Error
 	return goats, err
 }
+
+func GetTransactions(sellerid, buyerid uint, status string) ([]models.Transaction, error) {
+	var transactions []models.Transaction
+	query := database.DB
+
+	if sellerid != 0 {
+		query = query.Where("seller_id = ?", sellerid)
+	}
+
+	if buyerid != 0 {
+		query = query.Where("buyer_id = ?", buyerid)
+	}
+
+	if status != "" {
+		query = query.Where("status = ?", status)
+	}
+
+	if err := query.Find(&transactions).Error; err != nil {
+		return nil, err
+	}
+
+	return transactions, nil
+}

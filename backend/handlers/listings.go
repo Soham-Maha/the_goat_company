@@ -9,6 +9,7 @@ import (
 	"github.com/google/uuid"
 	"github.com/vaibhavsijaria/TGC-be.git/database"
 	"github.com/vaibhavsijaria/TGC-be.git/models"
+	"github.com/vaibhavsijaria/TGC-be.git/services"
 )
 
 func CreateGoat(c *gin.Context) {
@@ -89,10 +90,41 @@ func ListGoats(c *gin.Context) {
 		query = query.Where("price <= ?", maxPrice)
 	}
 
+	if sex := c.Query("sex"); sex != "" {
+		query = query.Where("sex = ?", sex)
+	}
+
+	if age := c.Query("age"); age != "" {
+		query = query.Where("age = ?", age)
+	}
+
+	query = query.Where("for_sale = ?", true)
+
 	if err := query.Find(&Goats).Error; err != nil {
 		c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
 		return
 	}
 
 	c.JSON(http.StatusOK, Goats)
+}
+
+func GetMyListings(c *gin.Context) {
+	user, exists := c.Get("user")
+	if !exists {
+		c.JSON(http.StatusUnauthorized, gin.H{"error": "User not authenticated"})
+		return
+	}
+
+	farmer, ok := user.(*models.Farmer)
+	if !ok {
+		c.JSON(http.StatusUnauthorized, gin.H{"error": "User is not a farmer"})
+		return
+	}
+
+	forsale := true
+	goats, err := services.GetGoats("", "", 0, 0, farmer.ID, &forsale)
+	if err != nil {
+		c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
+	}
+	c.JSON(http.StatusOK, goats)
 }

@@ -69,3 +69,22 @@ func PurchaseGoat(c *gin.Context) {
 	}
 	c.JSON(http.StatusOK, tx)
 }
+
+func GetMyOrders(c *gin.Context) {
+	user, exists := c.Get("user")
+	if !exists {
+		c.JSON(http.StatusUnauthorized, gin.H{"error": "User not authenticated"})
+		return
+	}
+
+	farmer, ok := user.(*models.Farmer)
+	if !ok {
+		c.JSON(http.StatusUnauthorized, gin.H{"error": "User is not a farmer"})
+		return
+	}
+	transactions, err := services.GetTransactions(0, farmer.ID, "completed")
+	if err != nil {
+		c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
+	}
+	c.JSON(http.StatusOK, transactions)
+}
