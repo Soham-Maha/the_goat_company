@@ -9,5 +9,6 @@ import (
 func InvesmentRoute(c *gin.Engine) {
 	user := c.Group("/invest")
 	user.POST("/createinvestment", middleware.AuthMiddleware, handlers.OfferInvestment)
+	user.POST("/acceptinvestment", middleware.AuthMiddleware, handlers.AccpetToInvestment)
 	user.GET("/investments", middleware.AuthMiddleware, handlers.ViewAllInvestment)
 }

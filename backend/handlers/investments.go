@@ -99,3 +99,62 @@ func ViewAllInvestment(c *gin.Context) {
 	c.JSON(http.StatusOK, invesments)
 
 }
+
+func RequestInvestment(c *gin.Context) {
+	user, exists := c.Get("user")
+	if !exists {
+		c.JSON(http.StatusUnauthorized, gin.H{"error": "User not authenticated"})
+		return
+	}
+
+	farmer, ok := user.(*models.Farmer)
+	if !ok {
+		c.JSON(http.StatusUnauthorized, gin.H{"error": "User is not a farmer"})
+		return
+	}
+
+	var request struct {
+		Amount uint    `json:"amount" binding:"required"`
+		Psplit float32 `json:"psplit" binding:"required"`
+	}
+
+	if err := c.ShouldBindJSON(&request); err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+		return
+	}
+
+	investment, err := services.SeekInvestment(farmer.ID, request.Amount, request.Psplit)
+	if err != nil {
+		c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
+	}
+
+	c.JSON(http.StatusOK, investment)
+}
+
+func AccpetToInvestment(c *gin.Context) {
+	var request struct {
+		Investmentid uint `json:"investmentid" binding:"required"`
+	}
+	user, exists := c.Get("user")
+	if !exists {
+		c.JSON(http.StatusUnauthorized, gin.H{"error": "User not authenticated"})
+		return
+	}
+
+	investor, ok := user.(*models.Investor)
+	if !ok {
+		c.JSON(http.StatusUnauthorized, gin.H{"error": "User is not a Investor"})
+		return
+	}
+
+	if err := c.ShouldBindJSON(&request); err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+		return
+	}
+	investment, err := services.AcceptInvestment(request.Investmentid, investor.ID)
+	if err != nil {
+		c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
+	}
+	c.JSON(http.StatusOK, investment)
+
+}
