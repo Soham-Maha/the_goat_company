@@ -48,7 +48,7 @@ const Profile = () => {
             </StyledText>
           </StyledView>
           <StyledView
-            className="w-full h-[50px] border-t flex-row justify-between"
+            className="w-full h-[50px] border-t flex-row justify-between border-b" 
             style={styles.container}
           >
             <StyledText className="font-bold text-2xl p-1 text-[25px] text-left">
@@ -58,39 +58,7 @@ const Profile = () => {
               Price
             </StyledText>
           </StyledView>
-          <StyledView
-            className="w-full h-[50px] border-t flex-row justify-between"
-            style={styles.container}
-          >
-            <StyledText className="font-bold text-2xl p-1 text-[25px] text-left">
-              Goat-Code
-            </StyledText>
-            <StyledText className="font-bold text-2xl p-1 text-[25px] text-right">
-              Price
-            </StyledText>
-          </StyledView>
-          <StyledView
-            className="w-full h-[50px] border-t flex-row justify-between"
-            style={styles.container}
-          >
-            <StyledText className="font-bold text-2xl p-1 text-[25px] text-left">
-              Goat-Code
-            </StyledText>
-            <StyledText className="font-bold text-2xl p-1 text-[25px] text-right">
-              Price
-            </StyledText>
-          </StyledView>
-          <StyledView
-            className="w-full h-[50px] border-t border-b flex-row justify-between"
-            style={styles.container}
-          >
-            <StyledText className="font-bold text-2xl p-1 text-[25px] text-left">
-              Goat-Code
-            </StyledText>
-            <StyledText className="font-bold text-2xl p-1 text-[25px] text-right">
-              Price
-            </StyledText>
-          </StyledView>
+          
       </View>
       <StyledView>
       </StyledView>
