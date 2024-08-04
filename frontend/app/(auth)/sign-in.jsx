@@ -3,7 +3,7 @@ import React, { useState } from "react";
 import { SafeAreaView } from "react-native-safe-area-context";
 import FormField from "../../components/FormField";
 import { images } from "../../constants";
-import CustotmButtor from "../../components/CustotmButtor";
+import CustotmButton from "../../components/CustotmButton";
 import { Link } from "expo-router";
 
 const SignIn = () => {
@@ -14,7 +14,9 @@ const SignIn = () => {
 
   const [isSubmitting, setIsSubmitting] = useState(false);
 
-  const submit = () => {};
+  const submit = () => {
+    
+  };
 
   return (
     <SafeAreaView className="bg-primary h-full" style={styles.container}>
