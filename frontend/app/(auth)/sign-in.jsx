@@ -4,7 +4,7 @@ import { SafeAreaView } from "react-native-safe-area-context";
 import FormField from "../../components/FormField";
 import { images } from "../../constants";
 import CustotmButton from "../../components/CustotmButton";
-import { Link } from "expo-router";
+import { Link, router } from "expo-router";
 
 const SignIn = () => {
   const [form, setForm] = useState({
@@ -14,8 +14,34 @@ const SignIn = () => {
 
   const [isSubmitting, setIsSubmitting] = useState(false);
 
-  const submit = () => {
-    
+  const submit = async () => {
+    setIsSubmitting(true);
+    try {
+      const response = await fetch("https://36d8-152-67-176-76.ngrok-free.app/user/login", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          email: form.email,
+          password: form.password,
+        }),
+      });
+
+      if (!response.ok) {
+        // Handle error response
+        console.error("Login failed");
+        return;
+      }
+
+      const data = await response.json();
+      console.log("Login successful:", data);
+      router.push("/home");
+    } catch (error) {
+      console.error("Error:", error);
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
@@ -44,11 +70,15 @@ const SignIn = () => {
             isLoading={isSubmitting}
           />
           <View className="gap-2 pt-5 ">
-            <Link href="/home" className="text-lg text-blue-600">Forgot Password</Link>
+            <Link href="/home" className="text-lg text-blue-600">
+              Forgot Password
+            </Link>
           </View>
           <View className="justify-center flex-row gap-2 pt-5 ">
             <Text className="text-lg text-black">Dont have a account?</Text>
-            <Link className="font-bold text-lg text-black" href='sign-up'>Sign up</Link>
+            <Link className="font-bold text-lg text-black" href="sign-up">
+              Sign up
+            </Link>
           </View>
         </View>
       </ScrollView>
@@ -59,7 +89,7 @@ const SignIn = () => {
 export default SignIn;
 
 const styles = StyleSheet.create({
-  container:{
-    backgroundColor: "#B99C7C"
-  }
+  container: {
+    backgroundColor: "#B99C7C",
+  },
 });

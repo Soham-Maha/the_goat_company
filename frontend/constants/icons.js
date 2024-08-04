@@ -14,6 +14,8 @@ import play from "../assets/icons/play.png";
 import explore from "../assets/icons/explore.png"
 import wallet from "../assets/icons/wallet.png"
 import chat from "../assets/icons/chat.png"
+import Group from "../assets/icons/Group.png"
+import edit from "../assets/icons/edit.png"
 
 export default {
   play,
@@ -32,4 +34,6 @@ export default {
   explore,
   wallet,
   chat,
+  Group,
+  edit,
 };

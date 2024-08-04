@@ -4,7 +4,7 @@ import { SafeAreaView } from "react-native-safe-area-context";
 import FormField from "../../components/FormField";
 import { images } from "../../constants";
 import CustotmButton from "../../components/CustotmButton";
-import { Link } from "expo-router";
+import { Link, router } from "expo-router";
 
 const SignUp = () => {
   const [form, setForm] = useState({
@@ -15,7 +15,37 @@ const SignUp = () => {
 
   const [isSubmitting, setIsSubmitting] = useState(false);
 
-  const submit = () => {};
+  const submit = async () => {
+    setIsSubmitting(true);
+    try {
+      const response = await fetch("https://36d8-152-67-176-76.ngrok-free.app/user/signup", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          usertype: "farmer",
+          name: form.name,
+          email: form.email,
+          password: form.password,
+        }),
+      });
+
+      if (!response.ok) {
+        // Handle error response
+        console.error("SignUp failed");
+        return;
+      }
+
+      const data = await response.json();
+      console.log("SignUp successful:", data);
+      router.push("/sign-in");
+    } catch (error) {
+      console.error("Error:", error);
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
 
   return (
     <SafeAreaView className="bg-primary h-full" style={styles.container}>
@@ -24,9 +54,9 @@ const SignUp = () => {
           <Text className="text-3xl text-black font-bold mt-10 ">Create Account</Text>
           <Image source={images.logo} className="mt-5" />
           <FormField
-            title="Phone Number"
-            value={form.phoneNumber}
-            handleChangeText={(e) => setForm({ ...form, phoneNumber: e })}
+            title="Name"
+            value={form.name}
+            handleChangeText={(e) => setForm({ ...form, name: e })}
             otherStyles="mt-4" 
           />
           <FormField

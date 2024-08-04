@@ -19,9 +19,9 @@ const Home = () => {
           <Image source={icons.chat} className="w-[30px] h-[30px] p-5 m-5" />
         </StyledView>
         <StyledView className="flex-1 items-center">
-          <StyledView className="flex flex-col space-y-4">
+          <StyledView className="flex flex-col space-y-4 p-4">
             <StyledView
-              className="w-[363px] h-[133px] rounded-[15px] justify-center"
+              className="min-w-full h-[133px] rounded-[15px] justify-center"
               style={styles.container1}
             >
               <StyledText className="justify-center items-center pl-4 text-white font-bold text-[50px] ">
@@ -29,7 +29,7 @@ const Home = () => {
               </StyledText>
             </StyledView>
             <StyledView
-              className="w-[363px] h-[48px] rounded-[5px] justify-center pl-2"
+              className="min-w-full h-[48px] rounded-[5px] justify-center pl-2"
               style={styles.container2}
             >
               <StyledText className="text-[20px] text-red-700">
@@ -37,7 +37,7 @@ const Home = () => {
               </StyledText>
             </StyledView>
             <StyledView
-              className="w-[363px] h-[48px] rounded-[5px] justify-center pl-2"
+              className="min-w-full h-[48px] rounded-[5px] justify-center pl-2"
               style={styles.container2}
             >
               <StyledText className="text-[20px] text-red-700">
@@ -46,43 +46,55 @@ const Home = () => {
             </StyledView>
           </StyledView>
           <StyledView
-            className="w-[363px] h-[50px] rounded-[5px] justify-center"
+            className="w-[363px] h-[50px] rounded-[5px] "
             style={styles.container}
           >
-            <StyledText className="font-bold text-2xl p-1 text-[30px]">
+            <StyledText className="font-bold text-2xl text-[30px] text-left ">
               MY ORDERS
             </StyledText>
           </StyledView>
           <StyledView
-            className="w-full h-[50px] border-t"
+            className="w-full h-[50px] border-t flex-row justify-between"
             style={styles.container}
           >
-            <StyledText className="font-bold text-2xl p-1 text-[25px]">
+            <StyledText className="font-bold text-2xl p-1 text-[25px] text-left">
               Goat-Code
+            </StyledText>
+            <StyledText className="font-bold text-2xl p-1 text-[25px] text-right">
+              Price
             </StyledText>
           </StyledView>
           <StyledView
-            className="w-full h-[50px] border-t"
+            className="w-full h-[50px] border-t flex-row justify-between"
             style={styles.container}
           >
-            <StyledText className="font-bold text-2xl p-1 text-[25px]">
+            <StyledText className="font-bold text-2xl p-1 text-[25px] text-left">
               Goat-Code
+            </StyledText>
+            <StyledText className="font-bold text-2xl p-1 text-[25px] text-right">
+              Price
             </StyledText>
           </StyledView>
           <StyledView
-            className="w-full h-[50px] border-t"
+            className="w-full h-[50px] border-t flex-row justify-between"
             style={styles.container}
           >
-            <StyledText className="font-bold text-2xl p-1 text-[25px]">
+            <StyledText className="font-bold text-2xl p-1 text-[25px] text-left">
               Goat-Code
+            </StyledText>
+            <StyledText className="font-bold text-2xl p-1 text-[25px] text-right">
+              Price
             </StyledText>
           </StyledView>
           <StyledView
-            className="w-full h-[50px] border-t border-b"
+            className="w-full h-[50px] border-t border-b flex-row justify-between"
             style={styles.container}
           >
-            <StyledText className="font-bold text-2xl p-1 text-[25px]">
+            <StyledText className="font-bold text-2xl p-1 text-[25px] text-left">
               Goat-Code
+            </StyledText>
+            <StyledText className="font-bold text-2xl p-1 text-[25px] text-right">
+              Price
             </StyledText>
           </StyledView>
         </StyledView>
